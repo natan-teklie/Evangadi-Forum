@@ -7,7 +7,7 @@ const port = process.env.PORT;
 
 
 
-const userRouter = require("./server/api/users/user.router");
+// const userRouter = require("./server/api/users/user.router");
 // const questionRouter = require("./server/api/question/question.router");
 // const answerRouter = require("./server/api/answer/answer.router");
 
