@@ -1,22 +1,25 @@
-const mysql2 = require('mysql2')
+const express = require('express');
+const app = express();
+const port =5500;
+
+
+//userRoute middleware file
+const userRoutes = require('./routes/userRoute')
+
+//json middleware
+app.use(express.json())
+
+
+//userRoute middleware
+app.use('/api/users', userRoutes)
 
 
 
 
-
-const dbConnection = mysql2.createPool({
-    user:"admin",
-    database:"evangadi-db",
-    host:"localhost",
-    password:"1234567",
-    connectionLimit: 10
-})
-
-
-dbConnection.execute("select 'test'", (err, result) =>{
+app.listen(port, (err) =>{
     if(err){
         console.log(err.message)
     }else{
-        console.log(result)
+        console.log(`listening on ${port}`)
     }
 })
