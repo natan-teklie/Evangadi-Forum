@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-
+//controller file
 const {Register, Login, Check} = require('../controller/userController')
 
 
