@@ -15,7 +15,7 @@ async function Register(req, res) {
   }
   try {
     const [user] = await dbConnection.query(
-      "select username, userid from users where username = ? or email = ?",
+      "select username, userid, password from users where username = ? or email = ?",
       [username, email]
     );
     ////Elias codes optional
@@ -52,6 +52,8 @@ async function Register(req, res) {
 }
 
 async function Login(req, res) {
+  //get the two constraints from the user by destructuring
+
   const { email, password } = req.body;
   if (!email || !password) {
     return res
@@ -60,17 +62,28 @@ async function Login(req, res) {
   }
 
   try {
+    //check the email
     const [user] = await dbConnection.query(
-      "select username, userid from users where email = ?",
+      "select username, userid, password from users where email = ?",
       [email]
     );
+    if(user.length == 0){
+      // return res.status(StatusCodes.BAD_REQUEST).json({user})
+    return res.status(StatusCodes.BAD_REQUEST).json({msg: "Invalid request"})
+  }
+
+  //Check password compare password
+  const isMach = await bcrypt.compare(password, user[0].password);
+  if(!isMach){
+   
+    return res.status(StatusCodes.BAD_REQUEST).json({msg:"Invalid credential"})
+  }
+
     // return res
     //   .status(StatusCodes.ACCEPTED)
     //   .json({ msg: "hello you are loged in" });
 
     //JSON WEB TOKEN
-
-
     const username = user[0].username;
     const userid = user[0].userid;
     
