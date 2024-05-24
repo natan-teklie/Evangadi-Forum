@@ -5,6 +5,7 @@ const bcrypt = require("bcrypt");
 const { StatusCodes } = require("http-status-codes");
 const jwt = require('jsonwebtoken')
 
+
 async function Register(req, res) {
   const { username, firstname, lastname, email, password } = req.body;
 
@@ -84,7 +85,7 @@ async function Login(req, res) {
     //   .json({ msg: "hello you are loged in" });
 
     //JSON WEB TOKEN
-    const username = user[0].username;
+    const username = user[0].username
     const userid = user[0].userid;
     
   const token = jwt.sign({username, userid}, 'secrte', {expiresIn: '1d'})
@@ -96,8 +97,17 @@ async function Login(req, res) {
       .json({ msg: "something went wrong please try again" });
   }
 }
-function Check(req, res) {
-  res.send("Well Come! We check users authentication");
-}
+
+//auth midlware
+
+async function Check(req, res) {
+
+const username = req.user.username
+const userid = req.user.userid
+
+  res.status(StatusCodes.OK).json({msg:"valid user", username, userid})
+
+
+}                                
 
 module.exports = { Register, Login, Check };

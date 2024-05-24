@@ -1,6 +1,5 @@
 const mysql2 = require('mysql2')
 
-
 const dbConnection = mysql2.createPool({
     user:"EAdmin",
     database:"evangadi-db",
@@ -10,13 +9,13 @@ const dbConnection = mysql2.createPool({
 })
 
 
-dbConnection.execute("select 'test'", (err, result) =>{
+dbConnection.execute("select 'test' ", (err, result) =>{
     if(err){
         console.log(err.message)
     }else{
         console.log(result)
     }
-})
+} )
 
 
-  module.exports = dbConnection.promise()
+module.exports = dbConnection.promise()

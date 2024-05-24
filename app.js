@@ -1,22 +1,22 @@
-const express = require('express');
+const express =require ('express');
 const app = express();
-const port =5500;
+const port = 5500;
 
 
-//userRoute middleware file
+//Route middlware file
 const userRoutes = require('./routes/userRoute')
 
-//json middleware
+//json middleware 
+
 app.use(express.json())
 
-
-//userRoute middleware
+//Route middlware
 app.use('/api/users', userRoutes)
 
 
 
 
-app.listen(port, (err) =>{
+app.listen(port, (err)=>{
     if(err){
         console.log(err.message)
     }else{
