@@ -95,7 +95,7 @@ async function Login(req, res) {
     });
     return res
       .status(StatusCodes.OK)
-      .json({ msg: "successfuly loged in", token });
+      .json({ msg: "successfuly loged in", token, username });
   } catch (error) {
     return res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
